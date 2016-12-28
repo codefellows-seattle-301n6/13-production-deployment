@@ -14,9 +14,6 @@
             '?per_page=10' +
             '&sort=updated',
        type: 'GET',
-       headers: {
-         Authorization: 'token ' + GITHUB_TOKEN
-       },
        success: function(data) {
          // NOTE: since the 'data' paramter comes back as an
          // array of objects, we can reassign allRepos below.
@@ -28,9 +25,6 @@
             '?per_page=5' +
             '&sort=updated',
        type: 'GET',
-       headers: {
-         Authorization: 'token ' + GITHUB_TOKEN
-       },
        success: function(data) {
          reposObj.followers = data;
        }
