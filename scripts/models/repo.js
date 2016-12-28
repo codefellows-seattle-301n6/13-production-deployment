@@ -15,7 +15,7 @@
             '&sort=updated',
        type: 'GET',
        headers: {
-         Authorization: `token ${process.env.GITHUB_TOKEN}`
+         Authorization: 'token ' + GITHUB_TOKEN
        },
        success: function(data) {
          // NOTE: since the 'data' paramter comes back as an
@@ -29,7 +29,7 @@
             '&sort=updated',
        type: 'GET',
        headers: {
-         Authorization: `token ${process.env.GITHUB_TOKEN}`
+         Authorization: 'token ' + GITHUB_TOKEN
        },
        success: function(data) {
          reposObj.followers = data;
