@@ -9,7 +9,7 @@
   reposObj.requestRepos = function(callback) {
     // NOTE: refactor this request into an $.ajax call
     $.when(
-      $.get('/github/user/repos' +
+      $.get('/github/users/repos' +
       '?per_page=10' +
       '&sort=updated')
       .then(function(data) {
