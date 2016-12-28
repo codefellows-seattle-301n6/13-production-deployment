@@ -10,7 +10,7 @@
     // NOTE: refactor this request into an $.ajax call
     $.when(
      $.ajax({
-       url: 'https://api.github.com/user/repos' +
+       url: '/github.com/user/repos' +
             '?per_page=10' +
             '&sort=updated',
        type: 'GET',
@@ -21,7 +21,7 @@
        }
      }),
      $.ajax({
-       url: 'https://api.github.com/users/patci/followers' +
+       url: '/github.com/users/patci/followers' +
             '?per_page=5' +
             '&sort=updated',
        type: 'GET',
