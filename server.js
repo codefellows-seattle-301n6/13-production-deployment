@@ -1,11 +1,10 @@
 'use strict';
 
-var express = require('express'),
+var express = require('express')
   // NOTE: require in our request proxy module
-  requestProxy = require('express-request-proxy'),
-  port = process.env.PORT || 3000,
-  app = express();
-
+var requestProxy = require('express-request-proxy')
+var port = process.env.PORT || 3000
+var app = express();
 // NOTE: now use our proxy within a function to request
 //        our github data on the server.
 
