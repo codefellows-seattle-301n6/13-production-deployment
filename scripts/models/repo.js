@@ -9,30 +9,27 @@
   reposObj.requestRepos = function(callback) {
     // NOTE: refactor this request into an $.ajax call
     $.when(
-     $.ajax({
-       url: 'https://api.github.com/user/repos' +
-            '?per_page=10' +
-            '&sort=updated',
-       type: 'GET',
-       headers: { 'Authorization': 'token ' + githubToken },
-       success: function(data) {
-         // NOTE: since the 'data' paramter comes back as an
-         // array of objects, we can reassign allRepos below.
-         reposObj.allRepos = data;
-       }
-     }),
-     $.ajax({
-       url: 'https://api.github.com/users/patci/followers' +
-            '?per_page=5' +
-            '&sort=updated',
-       type: 'GET',
-       headers: { 'Authorization': 'token ' + githubToken },
-       success: function(data) {
-         reposObj.followers = data;
-       }
-     })
-    ).done(callback);
+      $.get('/github/user/repos?type=owner')
+      .then(function(data) {
+        reposObj.allRepos = data;
+      }),
+      $.get('/github/user/followers')
+      .then(function(data) {
+        reposObj.followers = data;
+      })
+    ).done(callback)
   };
+
+  // reposObj.requestRepos = function(callback) {
+  //   let reqOne = $.get('/github/user/repos?type=owner')
+  //   let reqTwo = $.get('/github/user/followers')
+  //
+  //   $.when(reqOne, reqTwo).done((resOne, resTwo) => {
+  //     reposObj.allRepos = resOne[0]
+  //     reposObj.followers = resTwo[0]
+  //     if (callback) callback()
+  //   })
+  // };
 
   reposObj.withTheAttribute = function(attr) {
     return reposObj.allRepos.filter(function(aRepo) {
