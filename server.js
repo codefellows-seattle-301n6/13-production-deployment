@@ -1,16 +1,25 @@
 'use strict';
 
-var express = require('express'),
+var express = require('express')
   // NOTE: require in our request proxy module
+var requestProxy = require('express-request-proxy')
+var port = process.env.PORT || 3000
+var app = express()
 
-  port = process.env.PORT || 3000,
-  app = express();
+app.use(express.static('./'));
 
 // NOTE: now use our proxy within a function to request
 //        our github data on the server.
+app.get('github/*', function(request, response) {
+  console.log(`Routing Github request for, ${request.params[0]}`);
+  (requestProxy({
+    url: `https://api.github.com/${request.params[0]}`,
+    headers: {
+      Authorization: `token ${process.env.GITHUB_TOKEN}`
+    }
+  }))(request, response)
+}
 
-
-app.use(express.static('./'));
 
 app.get('*', function(request, response) {
   console.log('New request:', request.url);
