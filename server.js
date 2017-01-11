@@ -11,8 +11,8 @@ var port = process.env.PORT || 3000
 
 app.use(express.static('./'));
 
-app.get('/github/*', function(request, response) {
-  console.log('New request:', request.url);
+var proxyGHRequest = ('/github/*', function(request, response) {
+  console.log(`Routing request for ${request.params[0]}`);
   (requestProxy({
     url: `https://api.github.com/${request.params[0]}`,
     headers: {
@@ -21,7 +21,9 @@ app.get('/github/*', function(request, response) {
   }))(request, response)
 })
 
-app.get('/', (req, res) => {
+app.get('/github/*', proxyGHRequest);
+
+app.get('*', (req, res) => {
   res.sendFile('index.html', {root: '.'})
 })
 
