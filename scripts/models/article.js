@@ -75,7 +75,7 @@
       if (rows.length) {
         Article.loadAll(rows);
         articleView.renderIndexPage();
-        articleView.initAdminPage();
+        // articleView.initAdminPage();
       } else {
         $.getJSON('/data/hackerIpsum.json', function(rawData) {
           // Cache the json, so we don't need to request it next time:

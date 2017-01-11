@@ -8,30 +8,27 @@
 
   reposObj.requestRepos = function(callback) {
     // NOTE: refactor this request into an $.ajax call
-    $.when(
-     $.ajax({
-       url: 'https://api.github.com/user/repos' +
-            '?per_page=10' +
-            '&sort=updated',
-       type: 'GET',
-       headers: { 'Authorization': 'token ' + githubToken },
-       success: function(data) {
-         // NOTE: since the 'data' paramter comes back as an
-         // array of objects, we can reassign allRepos below.
-         reposObj.allRepos = data;
-       }
-     }),
-     $.ajax({
-       url: 'https://api.github.com/users/patci/followers' +
-            '?per_page=5' +
-            '&sort=updated',
-       type: 'GET',
-       headers: { 'Authorization': 'token ' + githubToken },
-       success: function(data) {
-         reposObj.followers = data;
-       }
-     })
-    ).done(callback);
+    $.get(
+      '/github/user/repos' +
+      '?per_page=10' +
+      '&sort=updated'
+    )
+    .then(function(data) {
+      console.log(data, 'this is the data');
+      // NOTE: since the 'data' paramter comes back as an
+      // array of objects, we can reassign allRepos below.
+      reposObj.allRepos = data;
+    });
+
+    $.get(
+      '/github/user/repos/followers' +
+      '?per_page=5' +
+      '&sort=updated'
+    )
+    .then(function(data) {
+      reposObj.followers = data;
+      if (callback) callback();
+    });
   };
 
   reposObj.withTheAttribute = function(attr) {

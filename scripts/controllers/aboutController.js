@@ -2,8 +2,9 @@
 
 (function(module) {
   var aboutController = {
-    index: function() {
+    index: function(ctx, next) {
       $('#about').fadeIn().siblings().hide();
+      next();
     }
   };
 
